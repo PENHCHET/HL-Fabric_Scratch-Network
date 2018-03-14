@@ -42,4 +42,5 @@ docker exec -it cli bash #shell into the 'cli' container to interact with the ne
     # TODO: flag to save $CHANNEL_NAME.block to ./artifacts/$CHANNEL_NAME/ path
 
     peer channel join -b $CHANNEL_NAME.block #Join peer to channel
-    
+    # N.B. peer that actually joined is based on set ENV variables (peer0.org1)
+    # Must swap out all the variables to join peer1 and org2 peers to network...
