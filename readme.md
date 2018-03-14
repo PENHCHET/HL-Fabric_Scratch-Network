@@ -3,7 +3,7 @@
 
 ###### A Step-by-Step walkthrough and re-creation of script files from the Hyperledger [Documentation Tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.0/build_network.html)
 
-
+See commit log for chronology of building the repo & script file(s)
 
 ## License <a name="license"></a>
 
