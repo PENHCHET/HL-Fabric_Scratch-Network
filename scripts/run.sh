@@ -33,3 +33,7 @@ docker-compose -f config_docker/docker-compose-cli.yaml up
 
 docker ps -a #review containers created by docker
 docker exec -it cli bash #shell into the 'cli' container to interact with the network
+## !! Within cli container:
+# root@35ed5451c268:/opt/gopath/src#:
+
+    echo $CHANNEL_NAME #check channel name
