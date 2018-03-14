@@ -1,0 +1,11 @@
+.DS_Store
+_docs/
+
+node_modules/
+
+.project
+
+crypto-materials/*
+artifacts/*.tx
+artifacts/*.block
+
