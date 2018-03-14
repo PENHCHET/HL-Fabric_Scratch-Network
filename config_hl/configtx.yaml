@@ -1,0 +1,19 @@
+---
+Profiles:
+  TwoOrgsChannel:
+    Consortium: ScratchConsortium # Pre-Defined in Genesis Block
+    Application:
+      Organizations:
+        - Name: Org1
+          ID: Org1MSP
+          MSPDir: ../crypto-materials/peerOrganizations/org1.scratch.com/msp
+          AnchorPeers:
+            - Host: peer0.org1.scratch.com
+              Port: 7051
+        - Name: Org2
+          ID: Org2MSP
+          MSPDir: ../crypto-materials/peerOrganizations/org2.scratch.com/msp
+          AnchorPeers:
+            - Host: peer0.org2.scratch.com
+              Port: 7051
+...
