@@ -11,3 +11,5 @@ export FABRIC_CFG_PATH=${PWD}/config_hl
 # TODO feature request to specify file (allowing split into separate files e.g. for genesis vs Channels, etc)
 
 configtxgen -profile NetworkGenesis -outputBlock ./artifacts/genesis.block
+
+configtxgen -profile NetworkGenesis -inspectBlock ./artifacts/genesis.block > _docs/inspectGenesis.json
