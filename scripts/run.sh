@@ -45,8 +45,18 @@ docker exec -it cli bash #shell into the 'cli' container to interact with the ne
     # N.B. peer that actually joined is based on set ENV variables (peer0.org1)
     # Must swap out all the variables to join peer1 and org2 peers to network...
 
+    ## See fabric-samples/first-network/scripts/script.sh
+    # for reference as to how these ENV variables are changed in the tutorial script
+
     ## p0o1
     # export CORE_PEER_LOCALMSPID="Org1MSP"
     # export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls/ca.crt
     # export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/users/Admin@org1.scratch.com/msp
     # export CORE_PEER_ADDRESS=peer0.org1.scratch.com:7051
+
+    ## p1o1
+    # export CORE_PEER_LOCALMSPID="Org1MSP"
+    # export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls/ca.crt
+    # export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/users/Admin@org1.scratch.com/msp
+    export CORE_PEER_ADDRESS=peer1.org1.scratch.com:7051
+    peer channel join -b $CHANNEL_NAME.block
