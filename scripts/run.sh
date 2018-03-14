@@ -44,3 +44,9 @@ docker exec -it cli bash #shell into the 'cli' container to interact with the ne
     peer channel join -b $CHANNEL_NAME.block #Join peer to channel
     # N.B. peer that actually joined is based on set ENV variables (peer0.org1)
     # Must swap out all the variables to join peer1 and org2 peers to network...
+
+    ## p0o1
+    # export CORE_PEER_LOCALMSPID="Org1MSP"
+    # export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls/ca.crt
+    # export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/users/Admin@org1.scratch.com/msp
+    # export CORE_PEER_ADDRESS=peer0.org1.scratch.com:7051
