@@ -18,3 +18,5 @@ export CHANNEL_NAME=openchannel # (!!!!!!!!) NO CAPITAL LETTERS
 # TODO: TBD is this intentional or bug? Did not see referenced in doc.
 echo $CHANNEL_NAME
 mkdir ./artifacts/$CHANNEL_NAME
+
+configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./artifacts/$CHANNEL_NAME/channel.tx -channelID $CHANNEL_NAME

@@ -6,6 +6,5 @@ node_modules/
 .project
 
 crypto-materials/*
-artifacts/*.tx
+artifacts/**/*.tx
 artifacts/*.block
-
