@@ -1,0 +1,35 @@
+---
+Profiles:
+  NetworkGenesis:
+    Orderer:
+      OrdererType: solo
+      Addresses: # plural
+        - orderer.scratch.com:7050
+      BatchTimeout: 2s
+      BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+      Kafka:
+        Brokers:
+          - 127.0.0.1:9092
+      Organizations:
+        - Name: OrdererOrg
+          ID: OrdererMSP
+          MSPDir: ../crypto-materials/ordererOrganizations/scratch.com/msp
+    Consortiums:
+      ScratchConsortium:
+        Organizations:
+          - Name: Org1
+            ID: Org1MSP
+            MSPDir: ../crypto-materials/peerOrganizations/org1.scratch.com/msp
+            AnchorPeers:
+              - Host: peer0.org1.scratch.com
+                Port: 7051
+          - Name: Org2
+            ID: Org2MSP
+            MSPDir: ../crypto-materials/peerOrganizations/org2.scratch.com/msp
+            AnchorPeers:
+              - Host: peer0.org2.scratch.com
+                Port: 7051
+...
