@@ -1,0 +1,27 @@
+# NO TABS IN YAML
+OrdererOrgs:
+  - Name: Orderer #(!!!) ONLY leading 2space parsing correctly... anything else... "could not find '-' error" 
+    Domain: scratch.com
+    Specs:
+        - Hostname: orderer
+
+PeerOrgs:
+  - Name: Org1
+    Domain: org1.scratch.com
+    Specs:
+        - Hostname: peer0
+        - Hostname: peer1
+    # Template:
+    #     Count: 2
+    Users:
+        Count: 1
+
+  - Name: Org2
+    Domain: org2.scratch.com
+    Specs:
+        - Hostname: peer0
+        - Hostname: peer1
+    # Template:
+    #     Count: 2
+    Users:
+        Count: 1
