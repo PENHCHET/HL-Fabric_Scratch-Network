@@ -1,0 +1,102 @@
+---
+version: '2'
+
+services:
+
+  orderer.scratch.com:
+    container_name: orderer.scratch.com
+    image: hyperledger/fabric-orderer
+    ports:
+      - 7050:7050
+    volumes:
+      - ../artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ../crypto-materials/ordererOrganizations/scratch.com/orderers/orderer.scratch.com/msp:/var/hyperledger/orderer/msp
+      - ../crypto-materials/ordererOrganizations/scratch.com/orderers/orderer.scratch.com/tls:/var/hyperledger/orderer/tls
+    environment:
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true # enabled TLS
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt] # reason for array? tbc
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+
+  peer0.org1.scratch.com:
+    container_name: peer0.org1.scratch.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    ports:
+      - 7051:7051
+      - 7053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-materials/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-materials/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls:/etc/hyperledger/fabric/tls
+    environment:
+      - CORE_PEER_ID:peer0.org1.scratch.com
+      - CORE_PEER_ADDRESS=peer0.org1.scratch.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.scratch.com:7051 #"Gossip Endpoint?"
+      - CORE_PEER_LOCALMSPID=Org1MSP
+
+  peer1.org1.scratch.com:
+    container_name: peer1.org1.scratch.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    ports:
+      - 8051:7051
+      - 8053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-materials/peerOrganizations/org1.scratch.com/peers/peer1.org1.scratch.com/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-materials/peerOrganizations/org1.scratch.com/peers/peer1.org1.scratch.com/tls:/etc/hyperledger/fabric/tls
+    environment:
+      - CORE_PEER_ID:peer1.org1.scratch.com
+      - CORE_PEER_ADDRESS=peer1.org1.scratch.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.scratch.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.scratch.com:7051
+
+  peer0.org2.scratch.com:
+    container_name: peer0.org2.scratch.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    ports:
+      - 9051:7051
+      - 9053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-materials/peerOrganizations/org2.scratch.com/peers/peer0.org2.scratch.com/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-materials/peerOrganizations/org2.scratch.com/peers/peer0.org2.scratch.com/tls:/etc/hyperledger/fabric/tls
+    environment:
+      - CORE_PEER_ID:peer0.org2.scratch.com
+      - CORE_PEER_ADDRESS=peer0.org2.scratch.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.scratch.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+
+  peer1.org2.scratch.com:
+    container_name: peer1.org2.scratch.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    ports:
+      - 10051:7051
+      - 10053:7053
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-materials/peerOrganizations/org2.scratch.com/peers/peer1.org2.scratch.com/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-materials/peerOrganizations/org2.scratch.com/peers/peer1.org2.scratch.com/tls:/etc/hyperledger/fabric/tls
+    environment:
+      - CORE_PEER_ID:peer1.org2.scratch.com
+      - CORE_PEER_ADDRESS=peer1.org2.scratch.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.scratch.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.scratch.com:7051
+...
