@@ -26,3 +26,7 @@ configtxgen -profile TwoOrgsChannel -inspectChannelCreateTx ./artifacts/$CHANNEL
 configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./artifacts/$CHANNEL_NAME/Org1anchors.tx -channelID $CHANNEL_NAME -asOrg Org1
 
 configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./artifacts/$CHANNEL_NAME/Org2anchors.tx -channelID $CHANNEL_NAME -asOrg Org2
+
+# CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=60 docker-compose -f config_docker/docker-compose-cli.yaml up
+# NOT triggering the bash script in the yaml (executing commands manually). Do not need to pass variables.
+docker-compose -f config_docker/docker-compose-cli.yaml up
