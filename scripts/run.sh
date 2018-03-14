@@ -20,3 +20,5 @@ echo $CHANNEL_NAME
 mkdir ./artifacts/$CHANNEL_NAME
 
 configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./artifacts/$CHANNEL_NAME/channel.tx -channelID $CHANNEL_NAME
+
+configtxgen -profile TwoOrgsChannel -inspectChannelCreateTx ./artifacts/$CHANNEL_NAME/channel.tx > _docs/inspectChannel.json
