@@ -24,3 +24,5 @@ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./artifacts/$CHANNEL_
 configtxgen -profile TwoOrgsChannel -inspectChannelCreateTx ./artifacts/$CHANNEL_NAME/channel.tx > _docs/inspectChannel.json
 
 configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./artifacts/$CHANNEL_NAME/Org1anchors.tx -channelID $CHANNEL_NAME -asOrg Org1
+
+configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./artifacts/$CHANNEL_NAME/Org2anchors.tx -channelID $CHANNEL_NAME -asOrg Org2
