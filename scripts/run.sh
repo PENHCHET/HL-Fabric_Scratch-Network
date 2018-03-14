@@ -22,3 +22,5 @@ mkdir ./artifacts/$CHANNEL_NAME
 configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./artifacts/$CHANNEL_NAME/channel.tx -channelID $CHANNEL_NAME
 
 configtxgen -profile TwoOrgsChannel -inspectChannelCreateTx ./artifacts/$CHANNEL_NAME/channel.tx > _docs/inspectChannel.json
+
+configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./artifacts/$CHANNEL_NAME/Org1anchors.tx -channelID $CHANNEL_NAME -asOrg Org1
