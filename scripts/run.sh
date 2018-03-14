@@ -37,3 +37,5 @@ docker exec -it cli bash #shell into the 'cli' container to interact with the ne
 # root@35ed5451c268:/opt/gopath/src#:
 
     echo $CHANNEL_NAME #check channel name
+
+    peer channel create -o orderer.scratch.com:7050 -c $CHANNEL_NAME -f ./artifacts/$CHANNEL_NAME/channel.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA_FILE
