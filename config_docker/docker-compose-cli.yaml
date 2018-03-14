@@ -1,0 +1,85 @@
+---
+version: '2'
+
+networks:
+  scratchnet:
+
+services:
+
+  orderer.scratch.com:
+    container_name: orderer.scratch.com
+    extends:
+      file: docker-compose-base.yaml
+      service: orderer.scratch.com
+    networks:
+      - scratchnet # each node needs to specify the network to be linked.
+
+  peer0.org1.scratch.com:
+    container_name: peer0.org1.scratch.com
+    extends:
+      file: docker-compose-base.yaml
+      service: peer0.org1.scratch.com
+    networks:
+      - scratchnet
+
+  peer1.org1.scratch.com:
+    container_name: peer1.org1.scratch.com
+    extends:
+      file: docker-compose-base.yaml
+      service: peer1.org1.scratch.com
+    networks:
+      - scratchnet
+
+  peer0.org2.scratch.com:
+    container_name: peer0.org2.scratch.com
+    extends:
+      file: docker-compose-base.yaml
+      service: peer0.org2.scratch.com
+    networks:
+      - scratchnet
+
+  peer1.org2.scratch.com:
+    container_name: peer1.org2.scratch.com
+    extends:
+      file: docker-compose-base.yaml
+      service: peer1.org2.scratch.com
+    networks:
+      - scratchnet
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools
+    tty: true
+    networks:
+      - scratchnet
+    working_dir: /opt/gopath/src
+    depends_on:
+      - orderer.scratch.com
+      - peer0.org1.scratch.com
+      - peer1.org1.scratch.com
+      - peer0.org2.scratch.com
+      - peer1.org2.scratch.com
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../chaincode/:/opt/gopath/src/chaincode/go/
+      - ../crypto-materials/:/opt/gopath/src/crypto/
+      - ../scripts/:/opt/gopath/src/scripts/
+      - ../artifacts/:/opt/gopath/src/artifacts/
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CHANNEL_NAME=openchannel
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_ID=cli
+      - ORDERER_CA_FILE=/opt/gopath/src/crypto/ordererOrganizations/scratch.com/orderers/orderer.scratch.com/msp/tlscacerts/tlsca.scratch.com-cert.pem
+      # CLI run through peer0org1 as default...
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/users/Admin@org1.scratch.com/msp
+      - CORE_PEER_ADDRESS=peer0.org1.scratch.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls/ca.crt
+      # Not part of the cli = peer definition??
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls/server.key
+    # command: /bin/bash -c './scripts/script.sh ${CHANNEL_NAME} ${DELAY}; sleep $TIMEOUT'
+...
