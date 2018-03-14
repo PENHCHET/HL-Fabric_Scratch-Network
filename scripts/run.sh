@@ -40,3 +40,6 @@ docker exec -it cli bash #shell into the 'cli' container to interact with the ne
 
     peer channel create -o orderer.scratch.com:7050 -c $CHANNEL_NAME -f ./artifacts/$CHANNEL_NAME/channel.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA_FILE
     # TODO: flag to save $CHANNEL_NAME.block to ./artifacts/$CHANNEL_NAME/ path
+
+    peer channel join -b $CHANNEL_NAME.block #Join peer to channel
+    
