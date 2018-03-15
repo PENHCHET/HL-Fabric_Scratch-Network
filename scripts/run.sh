@@ -58,5 +58,18 @@ docker exec -it cli bash #shell into the 'cli' container to interact with the ne
     # export CORE_PEER_LOCALMSPID="Org1MSP"
     # export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/peers/peer0.org1.scratch.com/tls/ca.crt
     # export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/org1.scratch.com/users/Admin@org1.scratch.com/msp
-    export CORE_PEER_ADDRESS=peer1.org1.scratch.com:7051
+    # export CORE_PEER_ADDRESS=peer1.org1.scratch.com:7051
+
+    ## p0o2
+    export CORE_PEER_LOCALMSPID="Org2MSP"
+    echo $CORE_PEER_LOCALMSPID
+    export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/crypto/peerOrganizations/org2.scratch.com/peers/peer0.org2.scratch.com/tls/ca.crt
+    echo $CORE_PEER_TLS_ROOTCERT_FILE
+    export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/crypto/peerOrganizations/org2.scratch.com/users/Admin@org2.scratch.com/msp
+    echo $CORE_PEER_MSPCONFIGPATH
+    export CORE_PEER_ADDRESS=peer0.org2.scratch.com:7051
+    echo $CORE_PEER_ADDRESS
     peer channel join -b $CHANNEL_NAME.block
+
+    ## ERR: “Expected MSP ID Org1MSP, received Org2MSP”
+    # TODO: inquire on chat.
