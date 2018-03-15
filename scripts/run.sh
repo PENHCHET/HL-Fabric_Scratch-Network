@@ -73,3 +73,13 @@ docker exec -it cli bash #shell into the 'cli' container to interact with the ne
 
     ## ERR: “Expected MSP ID Org1MSP, received Org2MSP”
     # TODO: inquire on chat.
+
+
+
+##########
+# Cleanup
+##########
+# following errors, assume issue possibly in config. Purge containers to prep for edits and restarting network...
+docker ps -a
+docker rm -f $(docker ps -aq)
+docker network prune
